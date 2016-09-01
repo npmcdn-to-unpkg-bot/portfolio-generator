@@ -9,6 +9,15 @@ main#app {
     font-weight: 100;
 }
 
+#options > label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+label > label {
+    margin-left: 5px;
+}
+
 nav {
     margin-top: 50px;
     margin-left: 150px;
@@ -32,7 +41,13 @@ h1 {
 }
 
 h2 {
+    margin-top: 15px;
     margin-bottom: 20px;
+}
+
+h3 {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 p {
