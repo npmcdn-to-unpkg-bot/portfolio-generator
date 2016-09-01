@@ -2,26 +2,38 @@ var Student = function Student(name, full_time_weight, ticket_count){
     this.name = name;
     this.full_time_weight = full_time_weight;
     this.ticket_count = ticket_count;
+    this.load = 0;
 }
 
 
 
-Student.prototype.getCapacity = function(student_quartile){
-    function roundToTens(number){
-        return Math.ceil(number/10)*10;
+Student.prototype.getCapacity = function (student_quartile) {
+    if (!this.capacity) {
+
+        function roundToTens(number) {
+            return Math.ceil(number / 10) * 10;
+        }
+        var capacity = 1;
+
+        if (this.full_time_weight >= 2) return 2;
+        if (this.ticket_count <= roundToTens(student_quartile.getFirstQuartile())) {
+            capacity = .5;
+        }
+        else if (this.ticket_count >= roundToTens(student_quartile.getThirdQuartile())) {
+            capacity = 1.5;
+        }
+
+        this.capacity = capacity;
     }
-    var capacity = 1;
 
-    if(this.full_time_weight >= 2)
-        return 2;
-    if(this.ticket_count <= roundToTens(student_quartile.getFirstQuartile())){
-        return.5;
-    }else if(this.ticket_count >= roundToTens(student_quartile.getThirdQuartile())){
-        return 1.5;
-    }
+    return this.capacity;
+}
 
-    return capacity;
-
+Student.prototype.addCourse = function(course){
+    if(!this.courses) this.courses = [];
+    this.courses.push(course);
+    if(!this.load)this.load = 0;
+    this.load += course.getScore();
 }
 
 //Debugging

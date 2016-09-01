@@ -23,7 +23,7 @@ var Course =
         this.section = section;
         this.ticket = ticket;
         if (department) this.department = department;
-        console.log(department);
+//        console.log(department);
     }
 
 /*
@@ -31,12 +31,15 @@ var Course =
  */
 Course.prototype.scoreAttribute = function(item, quartile, lowerWeight, higherWeight) {
         var score = 0;
-        if (item <= quartile.getFirstQuartile()) score = lowerWeight;
+        if (item <= quartile.getFirstQuartile()){
+            score = lowerWeight;
+//            console.log("Quartile:",item,quartile.getFirstQuartile())
+        }
         else if (item >= quartile.getThirdQuartile()){
             score = higherWeight;
             if(quartile.isOutlier(item)){
                 score += .5
-                console.log(`We found an outlier!\nNumber:${item}`);
+//                console.log(`We found an outlier!\nNumber:${item}`);
             }
         }
         else score = 1;
@@ -54,12 +57,14 @@ Course.prototype.scoreAttribute = function(item, quartile, lowerWeight, higherWe
  *
  */
 Course.prototype.getScore = function (quartiles){
+    if(! this.score){
+        var sections = this.scoreAttribute(this.section, quartiles.section, optionz.section.lowerWeight, optionz.section.higherWeight);
 
-    var sections = this.scoreAttribute(this.section, quartiles.section, optionz.section.lowerWeight, optionz.section.higherWeight);
-
-    var tickets = this.scoreAttribute(this.ticket,quartiles.ticket, optionz.ticket.lowerWeight, optionz.ticket.higherWeight);
-    var average = (tickets+sections)/2
-    var score = Math.round((Math.ceil(average*10)/10)*2)/2
-    return score;
+        var tickets = this.scoreAttribute(this.ticket,quartiles.ticket, optionz.ticket.lowerWeight, optionz.ticket.higherWeight);
+        var average = (tickets+sections)/2
+        this.score = Math.round((Math.ceil(average*10)/10)*2)/2
+    }
+//    console.log(score);
+    return this.score;
 }
 

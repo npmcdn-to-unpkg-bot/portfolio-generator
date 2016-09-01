@@ -8,9 +8,11 @@ var studentsQuartile;
 
 
 var options = {
-    sectionsRow : "Sections",
-    ticketsRow: "Ticket Count\r",
-    studentRow: "Ticket Count\r"
+    sectionsColumn : "Sections",
+    ticketsColumn: "Ticket Count\r",
+    studentColumn: "Ticket Count\r",
+    shifts: 5,
+
 };
 
 
@@ -28,35 +30,38 @@ function buildQuartiles(){
     // tickets quartile
     var tickets = [];
     for(var i in ticketLists){
-        var j = parseInt(ticketLists[i][options.ticketsRow]);
+        var j = parseInt(ticketLists[i][options.ticketsColumn]);
         if(j)
         tickets.push(j);
     }
-    console.log((ticketLists));
+
     ticketsQuartile = (new Quartile(tickets));
 
     //sections quartile
     var sections = [];
     for(var i in sectionLists){
-        var j = parseInt(sectionLists[i][options.sectionsRow]);
+        var j = parseInt(sectionLists[i][options.sectionsColumn]);
         if(j)
         sections.push(j);
     }
-    console.log((sectionLists));
+
     sectionsQuartile = (new Quartile(sections));
+
+
 
     //students quartile
     var students = [];
     for(var i in studentsList){
         if(i != undefined){
-            var j = parseInt(studentsList[i][options.studentRow]);
-            console.log(j);
+            var j = parseInt(studentsList[i][options.studentColumn]);
+
             if(j >= 0)
                 students.push(j);
         }
     }
-    console.log((students));
+
     studentsQuartile = (new Quartile(students));
+
 
     rankData();
 
@@ -68,20 +73,21 @@ function rankData(){
 
         if(!ticketLists[i]){
             ticketLists[i] = {};
-            ticketLists[i][options.ticketsRow] = ticketsQuartile.getMedian();
+            ticketLists[i][options.ticketsColumn] = ticketsQuartile.getMedian();
         }
-        courses.push(new Course(i,sectionLists[i]["Email"],sectionLists[i].Sections,ticketLists[i][options.ticketsRow],sectionLists[i].Department_Name));
-        //console.log(courses[200].getScore({section:sectionsQuartile,ticket:ticketsQuartile}),courses[200]);
+        courses.push(new Course(i,sectionLists[i]["Email"],sectionLists[i].Sections,ticketLists[i][options.ticketsColumn],sectionLists[i].Department_Name));
     }
 
     var students = [];
 
     for(var i in studentsList){
-        console.log(studentsList[i]);
-        students.push(new Student(i,studentsList[i]["Full Time Weight"], studentsList[i][options.studentRow]));
+
+        students.push(new Student(i,studentsList[i]["Full Time Weight"], studentsList[i][options.studentColumn]));
     }
 
-    console.log(students[13].getCapacity(studentsQuartile));
+
+
+    generatePortfolio(students,courses);
 
 }
 
