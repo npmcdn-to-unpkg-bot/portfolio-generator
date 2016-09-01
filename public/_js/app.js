@@ -2,17 +2,77 @@
 
     var LoadPortfolio = React.createClass({
 
+        loadNewPortfolio: function(e) {
+            document.querySelector("#portfolioOutput").innerHTML = "<h1>New Portfolio!</h1>";
+        },
+
         loadPreviousPortfolio: function(e) {
-            console.log(e);
-            console.log(this.props.prevPortfolio);
-            document.querySelector("#portfolioOutput").innerHTML = "<h1>HELLO!</h1>";
+            document.querySelector("#portfolioOutput").innerHTML = "<h1>Old portofolio!</h1>";
         },
 
         render: function() {
             return (
                 <div id="portfolio">
                     <h2>Portfolio</h2>
+                    <input type="button" value="Load New Portfolio?" onClick={ this.loadNewPortfolio } />
                     <input type="button" value="Load Previously Made Portfolio?" onClick={ this.loadPreviousPortfolio } />
+                </div>
+            );
+        }
+
+    });
+
+    var Options = React.createClass({
+
+        render: function() {
+            return (
+                <div id="options">
+                    <h2>Options</h2>
+
+                    <label>
+                        Sections Column <input type="text" />
+                        <label>
+                            End Column? <input type="checkbox" />
+                        </label>
+                    </label>
+
+                    <label>
+                        Tickets Column <input type="text" />
+                        <label>
+                            End Column? <input type="checkbox" />
+                        </label>
+                    </label>
+
+                    <label>
+                        Student Column <input type="text" />
+                        <label>
+                            End Column? <input type="checkbox" />
+                        </label>
+                    </label>
+
+                    <label>
+                        Shifts <input type="number" />
+                    </label>
+
+                    <h3>Sections</h3>
+
+                    <label>
+                        Larger Course Weight <input type="number" />
+                    </label>
+
+                    <label>
+                        Smaller Course Weight <input type="number" />
+                    </label>
+
+                    <h3>Tickets</h3>
+
+                    <label>
+                        Larger Course Weight <input type="number" />
+                    </label>
+
+                    <label>
+                        Smaller Course Weight <input type="number" />
+                    </label>
                 </div>
             );
         }
@@ -85,6 +145,7 @@
             return (
                 <div id="portfolio">
                     <h1>Portfolio Generator</h1>
+                    <Options />
                     <Inputs />
                     <LoadPortfolio prevPortfolio = { this.state.portfolio } />
                     <div id="portfolioOutput"></div>
