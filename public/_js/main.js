@@ -10,7 +10,7 @@ var studentsQuartile;
 var options = {
     sectionsRow : "Sections",
     ticketsRow: "Ticket Count\r",
-    studentRow: 'Ticket Count'
+    studentRow: "Ticket Count\r"
 };
 
 
@@ -19,7 +19,7 @@ var studentReader = new CSV_Reader("student",data=>{studentsList = data; check()
 var ticketReader = new CSV_Reader("tickets",data=> {ticketLists = data; check();},0);
 
 function check(){
-    if(sectionLists && ticketLists && studentsList)
+    if(sectionLists && ticketLists &&  studentsList)
         buildQuartiles();
 }
 
@@ -48,10 +48,12 @@ function buildQuartiles(){
     //students quartile
     var students = [];
     for(var i in studentsList){
-        var j = (studentsList[i][options.studentRow]);
-        console.log(j);
-        if(j)
-        students.push(j);
+        if(i != undefined){
+            var j = parseInt(studentsList[i][options.studentRow]);
+            console.log(j);
+            if(j >= 0)
+                students.push(j);
+        }
     }
     console.log((students));
     studentsQuartile = (new Quartile(students));
@@ -66,7 +68,7 @@ function rankData(){
 
         if(!ticketLists[i]){
             ticketLists[i] = {};
-            ticketLists[i][options.ticketsRow] = new Quartile(tickets).getMedian();
+            ticketLists[i][options.ticketsRow] = ticketsQuartile.getMedian();
         }
         courses.push(new Course(i,sectionLists[i]["Email"],sectionLists[i].Sections,ticketLists[i][options.ticketsRow],sectionLists[i].Department_Name));
         //console.log(courses[200].getScore({section:sectionsQuartile,ticket:ticketsQuartile}),courses[200]);
@@ -75,10 +77,11 @@ function rankData(){
     var students = [];
 
     for(var i in studentsList){
-        students.push(new Student(i,students[i]["Full Time Weight"], students[i]['"Ticket Count"']));
+        console.log(studentsList[i]);
+        students.push(new Student(i,studentsList[i]["Full Time Weight"], studentsList[i][options.studentRow]));
     }
 
-    console.log(students);
+    console.log(students[13].getCapacity(studentsQuartile));
 
 }
 
