@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+main#app {
+    font-family: Helvetica, Arial, "Century Gothic", sans-serif;
+    font-weight: 100;
+}
+
+nav {
+    margin-top: 50px;
+    margin-left: 150px;
+}
+
+nav > button {
+    padding: 2.5px;
+}
+
+main#app > div {
+    margin-top: 20px;
+    margin-left: 150px;
+}
+
+main#app > div > div {
+    margin-bottom: 15px;
+}
+
+h1 {
+    margin-bottom: 30px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+input[type="button"] {
+    font-size: 20px;
+}

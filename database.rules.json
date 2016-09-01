@@ -1,15 +1,14 @@
-/*
 {
-  "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
-  }
-}
-*/
+	"rules": {
+		".read": "auth != null",
+		"users": {
+			"$uid": {
+      	".write": "auth != null && $uid === auth.uid"
+      }
+    },
+    "portfolio": {
+    	".write": "root.child('users/' + auth.uid + '/role').val() >= 8"
+    }
 
-{
-  "rules": {
-    ".read": true,
-    ".write": true
   }
 }
