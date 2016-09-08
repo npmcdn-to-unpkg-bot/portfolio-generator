@@ -20,6 +20,8 @@ var sectionReader = new CSV_Reader("section",data=>{sectionLists = data; check()
 var studentReader = new CSV_Reader("student",data=>{studentsList = data; check();},0);
 var ticketReader = new CSV_Reader("tickets",data=> {ticketLists = data; check();},0);
 
+
+
 function check(){
     if(sectionLists && ticketLists &&  studentsList)
         buildQuartiles();

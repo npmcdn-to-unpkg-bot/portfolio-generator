@@ -13,14 +13,14 @@ Student.prototype.getCapacity = function (student_quartile) {
         function roundToTens(number) {
             return Math.ceil(number / 10) * 10;
         }
-        var capacity = 1;
+        var capacity = 2.5;
 
-        if (this.full_time_weight >= 2) return 2;
+        if (this.full_time_weight >= 2) return 10;
         if (this.ticket_count <= roundToTens(student_quartile.getFirstQuartile())) {
-            capacity = .5;
+            capacity = 1.5;
         }
         else if (this.ticket_count >= roundToTens(student_quartile.getThirdQuartile())) {
-            capacity = 1.5;
+            capacity = 4;
         }
 
         this.capacity = capacity;
@@ -35,6 +35,14 @@ Student.prototype.addCourse = function(course){
     if(!this.load)this.load = 0;
     this.load += course.getScore();
 }
+
+Student.prototype.addDepartment = function(department){
+    if(!this.load)this.load = 0;
+    this.courses = department;
+    this.load += department.score;
+   // console.log("Student Load: "+this.load,department);
+}
+
 
 //Debugging
 

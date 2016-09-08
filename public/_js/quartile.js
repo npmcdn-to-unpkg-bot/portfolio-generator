@@ -11,7 +11,7 @@ var Quartile = function Quartile(data_set) {
         return result;
     }
     this.data_set = sortAscending(data_set);
-    console.log(this.data_set);
+//    console.log(this.data_set);
 }
 
 
